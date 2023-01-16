@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedHeaders: "*"
+            allowedMethods: "*"  
+
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: SOC-client
+            redirect-uri: http://localhost:4200/*
+            scope: openid
+        provider:
+          keycloak:
+            token-uri: http://localhost:8080/realms/SOC-realm/protocol/openid-connect/token
+            user-info-uri: http://localhost:8080/realms/SOC-realm/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8080/realms/SOC-realm/protocol/openid-connect/certs
+            user-name-attribute: name
+            user-info-authentication-method: header
+      resourceserver:
+        jwt:
+          jwk-set-uri:  http://localhost:8080/realms/SOC-realm/protocol/openid-connect/certs
+          
+keycloak-client:
+  server-url: http://localhost:8080
+  realm:  SOC-realm

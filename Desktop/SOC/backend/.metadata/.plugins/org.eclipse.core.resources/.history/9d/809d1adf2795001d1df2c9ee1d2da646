@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"  

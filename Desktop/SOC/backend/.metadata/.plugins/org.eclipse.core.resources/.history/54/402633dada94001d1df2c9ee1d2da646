@@ -1,0 +1,5 @@
+package com.microservices.eurekaservice.Config;
+
+public class SecurityConfig {
+
+}
